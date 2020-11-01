@@ -9,20 +9,19 @@ const modalStyle = {
     position: "fixed",
     top: 0,
     left: 0,
-    backgroundColor: "rgba(0,0,0,0.85)"
+    backgroundColor: "rgba(0,0,0,0.85)",
+    zIndex: 1000,
   },
   content: {
     position: "absolute",
-    top:    "2rem",
-    left:   "2rem",
-    right:  "2rem",
-    bottom: "2rem",
-    backgroundColor: "rggba(0,0,0,0)",
+    top:    "0.5rem",
+    left:   "0.5rem",
+    right:  "0.5rem",
+    bottom: "0.5rem",
+    backgroundColor: "transparent",
     borderRadius: "0rem",
     borderColor: "transparent",
-    padding: "0rem",
-    zIndex: 500,
-  }
+  },
 };
 
 function Header() {
@@ -77,9 +76,18 @@ function Gallery(props) {
 				);
 			})}
       <Modal isOpen={isModalOpen} style={modalStyle} onRequestClose={() => setIsModalOpen(false)}>
-        <img src={popupImageUrl} alt="innu"
-          onClick={() => setIsModalOpen(false)}
-        />
+        <div className="container">
+          <figure className="image">
+            <button className="delete is-large"
+              onClick={() => setIsModalOpen(false)}
+            >
+              Close
+            </button>
+            <img src={popupImageUrl} alt="innu"
+              onClick={() => setIsModalOpen(false)}
+            />
+          </figure>
+        </div>
       </Modal>
     </div>
   );
@@ -96,7 +104,7 @@ function Form(props) {
       <form onSubmit={handleSubmit}>
         <div className="field has-addons">
           <div className="control is-expanded">
-            <div className="select is-fullwidth">
+            <div className="select is-rounded is-fullwidth">
               <select name="breed" defaultValue="shiba">
                 <option value="affenpinscher">affenpinscher</option>
                 <option value="african">african</option>
