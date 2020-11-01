@@ -49,7 +49,7 @@ function Image(props) {
 }
 
 function Loading() {
-	return <p>Loading...</p>;
+  return <p>Loading...</p>;
 }
 
 function Gallery(props) {
@@ -57,24 +57,24 @@ function Gallery(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [popupImageUrl, setPopupImageUrl] = useState(null);
   if (urls == null) {
-		return <Loading />;
+    return <Loading />;
   }
 
   return (
     <div className="columns is-vcentered is-multiline">
-  		{urls.map((url) => {
-				return (
-					<div key={url} className="column is-3">
-						<Image
+      {urls.map((url) => {
+        return (
+          <div key={url} className="column is-3">
+            <Image
               src={url}
               onClick={() => {
                 setIsModalOpen(true);
                 setPopupImageUrl(url);
               }
             }/>
-					</div>
-				);
-			})}
+          </div>
+        );
+      })}
       <Modal isOpen={isModalOpen} style={modalStyle} onRequestClose={() => setIsModalOpen(false)}>
         <div className="container">
           <figure className="image">
