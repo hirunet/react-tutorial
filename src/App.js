@@ -1,5 +1,29 @@
 import { useEffect, useState } from "react";
 import { fetchImages } from "./api";
+import Modal from "react-modal";
+
+Modal.setAppElement("#content");
+
+const modalStyle = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    backgroundColor: "rgba(0,0,0,0.85)"
+  },
+  content: {
+    position: "absolute",
+    top:    "2rem",
+    left:   "2rem",
+    right:  "2rem",
+    bottom: "2rem",
+    backgroundColor: "rggba(0,0,0,0)",
+    borderRadius: "0rem",
+    borderColor: "transparent",
+    padding: "0rem",
+    zIndex: 500,
+  }
+};
 
 function Header() {
   return (
@@ -18,7 +42,7 @@ function Image(props) {
     <div className="card">
       <div className="card-image">
         <figure className="image">
-          <img src={props.src} alt="cute dog!" />
+          <img src={props.src} alt="cute dog!" onClick={props.onClick}/>
         </figure>
       </div>
     </div>
@@ -31,6 +55,8 @@ function Loading() {
 
 function Gallery(props) {
   const {urls} = props;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [popupImageUrl, setPopupImageUrl] = useState(null);
   if (urls == null) {
 		return <Loading />;
   }
@@ -40,10 +66,21 @@ function Gallery(props) {
   		{urls.map((url) => {
 				return (
 					<div key={url} className="column is-3">
-						<Image src={url} />
+						<Image
+              src={url}
+              onClick={() => {
+                setIsModalOpen(true);
+                setPopupImageUrl(url);
+              }
+            }/>
 					</div>
 				);
 			})}
+      <Modal isOpen={isModalOpen} style={modalStyle} onRequestClose={() => setIsModalOpen(false)}>
+        <img src={popupImageUrl} alt="innu"
+          onClick={() => setIsModalOpen(false)}
+        />
+      </Modal>
     </div>
   );
 }
